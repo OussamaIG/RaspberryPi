@@ -66,12 +66,16 @@ def TurnON(number):
             print('Toggle')
             led1.on()
             time.sleep(0.5)
+            led1.off()
             led2.on()
             time.sleep(0.5)
+            led2.off()
             led3.on()
             time.sleep(0.5)
+            led3.off()
             led4.on()
             time.sleep(0.5)
+            led4.off()
         else :
             print('toggle off')         
 
