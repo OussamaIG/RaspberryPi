@@ -1,6 +1,7 @@
 import sounddevice as sd
 import speech_recognition as sr
 import numpy as np
+import io
 
 def record_audio(duration):
     print("Recording started. Speak into the microphone...")
@@ -14,7 +15,11 @@ def convert_audio_to_text(audio):
     audio_data = audio.flatten()
     text = ""
 
-    with sr.AudioFile(np.array(audio_data).tobytes()) as audio_src:
+    audio_file = io.BytesIO()
+    np.save(audio_file, audio_data)
+    audio_file.seek(0)
+
+    with sr.AudioFile(audio_file) as audio_src:
         try:
             audio = r.record(audio_src)
             text = r.recognize_google(audio)
