@@ -10,6 +10,7 @@ def record_audio(duration):
     print("Done")
     return audio
 
+
 def convert_audio_to_text(audio):
     r = sr.Recognizer()
     audio_data = audio.flatten()
@@ -20,6 +21,9 @@ def convert_audio_to_text(audio):
     audio_file.seek(0)
 
     with sr.AudioFile(audio_file) as audio_src:
+        audio_data = audio_file.read()
+        audio_src.write_frames(audio_data)
+
         try:
             audio = r.record(audio_src)
             text = r.recognize_google(audio)
@@ -29,6 +33,7 @@ def convert_audio_to_text(audio):
             print(f"Could not request results from Google Speech Recognition service: {e}")
 
     return text
+
 
 record_duration = 5  # Specify the duration of the recording in seconds
 audio = record_audio(record_duration)
