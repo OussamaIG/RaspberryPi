@@ -4,8 +4,9 @@ def listen_and_transcribe():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening for 5 seconds...")
-        audio = r.listen(source, phrase_time_limit=5)
-    
+        r.adjust_for_ambient_noise(source)  # Optional: Adjust for ambient noise
+        audio = r.listen(source, timeout=5.0)
+
     try:
         text = r.recognize_google(audio)
         print("Transcription:", text)
