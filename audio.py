@@ -5,6 +5,7 @@ def listen_and_transcribe():
     with sr.Microphone() as source:
         print("Listening for 5 seconds...")
         r.adjust_for_ambient_noise(source)  # Optional: Adjust for ambient noise
+        r.energy_threshold = 4000  # Adjust the energy threshold as needed
         audio = r.listen(source, timeout=5.0)
 
     try:
