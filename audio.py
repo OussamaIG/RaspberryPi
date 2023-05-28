@@ -1,26 +1,10 @@
-import speech_recognition as sr
+import sounddevice as sd
 
-def listen_and_transcribe():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listening for 5 seconds...")
-        r.adjust_for_ambient_noise(source)  # Optional: Adjust for ambient noise
-        r.energy_threshold = 4000  # Adjust the energy threshold as needed
-        audio = r.listen(source, timeout=5.0)
+def record_audio(duration):
+    print("Recording started. Speak into the microphone...")
+    audio = sd.rec(int(duration * 44100), samplerate=44100, channels=1)
+    sd.wait()  # Wait until recording is complete
+    print("Done")
 
-    try:
-        text = r.recognize_google(audio)
-        print("Transcription:", text)
-        if 'weather' in text.lower():
-            return 1
-        else:
-            return 0
-    except sr.UnknownValueError:
-        print("Speech recognition could not understand audio")
-        return 0
-    except sr.RequestError as e:
-        print("Could not request results from Google Speech Recognition service; {0}".format(e))
-        return 0
-
-result = listen_and_transcribe()
-print("Result:", result)
+record_duration = 5  # Specify the duration of the recording in seconds
+record_audio(record_duration)
