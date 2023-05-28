@@ -78,7 +78,7 @@ def TurnON(number):
             led4.off()
         else :
             print('toggle off')         
-.
+
 app = Flask(__name__)
 
 @app.route("/")
