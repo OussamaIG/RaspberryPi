@@ -78,19 +78,7 @@ def TurnON(number):
             led4.off()
         else :
             print('toggle off')         
-
-def turnonlight(number):
-    match number:
-        case 1:
-            led1.on()
-        case 2:
-            led2.on()
-        case 3 :
-            led3.on()
-        case 4 :
-            led4.on()
-    
-
+.
 app = Flask(__name__)
 
 @app.route("/")
