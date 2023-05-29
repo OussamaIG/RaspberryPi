@@ -1,20 +1,75 @@
 from flask import Flask, request
 from gpiozero import LED
 import time
+import requests
+from datetime import datetime
+import pytz
 
-led1 = LED(22)
-led2 = LED(27)
-led3 = LED(17)
-led4 = LED(18)
+# led1 = LED(22)
+# led2 = LED(27)
+# led3 = LED(17)
+# led4 = LED(18)
 
 light1 = False
 light2 = False
 light3 = False
 light4 = False
 toggle = False
+weather = False
+metime = False
+
+def split_string(input_string):
+    # Split the string using "/"
+    split_list = input_string.split("/")
+    
+    return split_list
+
+def get_weather(city):
+    api_key = 'a250cee351bb47a0bb9170931232505'  # Replace with your WeatherAPI key
+    base_url = f'http://api.weatherapi.com/v1/current.json?key={api_key}'
+    
+    try:
+        response = requests.get(base_url, params={'q': city})
+        data = response.json()
+        
+        if 'error' in data:
+            print(f"Error: {data['error']['message']}")
+        else:
+            location = data['location']['name']
+            condition = data['current']['condition']['text']
+            temperature = data['current']['temp_c']
+            humidity = data['current']['humidity']
+            
+            weather = { "cityname" : {location}, "temp" : {temperature}, "humidity" : {humidity}}
+            return weather
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+
+def get_current_time(city, time_zone):
+    # Get the current time in UTC
+    current_time = datetime.now(pytz.utc)
+    
+    # Convert the UTC time to the specified time zone
+    target_time_zone = pytz.timezone(time_zone)
+    converted_time = current_time.astimezone(target_time_zone)
+    
+    # Format the converted time
+    formatted_time = converted_time.strftime("%H:%M:%S")  # Hours:Minutes:Seconds
+    
+    # Log the current time in the specified city
+    return {formatted_time}
+
+def get_date():
+    current_time = datetime.now()
+
+    # Format the current time and date
+    formatted_time = current_time.strftime("%H:%M:%S")  # Hours:Minutes:Seconds
+    formatted_date = current_time.strftime("%Y-%m-%d")  # Year-Month-Day
+    data = {"time" : formatted_date, "date" : formatted_date}
+    return data
 
 def TurnON(number):
-    global light1, light2, light3, light4, toggle
+    global light1, light2, light3, light4, toggle, weather, metime
 
     if number == "1":
         print('ON')
@@ -78,7 +133,22 @@ def TurnON(number):
             led4.off()
         else :
             print('toggle off')         
+    elif number == "10" :
+        weather = True
+    elif weather == True:
+        weather = get_weather(number)
+        print(weather)
 
+    elif number == "9" :
+        metime = True
+    elif metime == True :
+        city = split_string(number)
+        mytime = get_current_time(city[1], number)
+        print(f"Current Time in {city[1]}: {mytime}")
+    elif number == "8" :
+        datetime = get_date()
+        print(f"Current Time: {datetime['time']}")
+        print(f"Current Date: {datetime['date']}")
 app = Flask(__name__)
 
 @app.route("/")

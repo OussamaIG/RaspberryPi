@@ -1,36 +1,29 @@
-import sounddevice as sd
-import soundfile as sf
 import speech_recognition as sr
 
-def record_audio(duration):
-    # Set the sample rate and channels for recording
-    sample_rate = 44100
-    channels = 1
-
-    # Record audio for the specified duration
-    recording = sd.rec(int(duration * sample_rate), samplerate=sample_rate, channels=channels)
-    sd.wait()
-
-    return recording, sample_rate
-
-def convert_audio_to_text(audio_file):
+def convert_audio_to_text():
     r = sr.Recognizer()
-    text = ""
 
-    with sr.AudioFile(audio_file) as audio_src:
-        audio = r.record(audio_src)
+    # Initialize the microphone as the audio source
+    mic = sr.Microphone()
+
+    with mic as source:
+        print("Listening...")
+
+        # Adjust the microphone for ambient noise
+        r.adjust_for_ambient_noise(source)
+
+        # Capture the audio input from the microphone
+        audio = r.listen(source)
+
+    try:
+        # Use the Google Speech Recognition API to convert speech to text
         text = r.recognize_google(audio)
+        return text
+    except sr.UnknownValueError:
+        print("Unable to recognize speech.")
+    except sr.RequestError as e:
+        print("Error occurred; {0}".format(e))
 
-    return text
-
-# Record audio for 5 seconds
-duration = 5
-audio, sample_rate = record_audio(duration)
-
-# Save the recorded audio as a WAV file
-file_path = "recorded_audio.wav"
-sf.write(file_path, audio, sample_rate)
-
-# Convert the audio file to text
-text = convert_audio_to_text(file_path)
-print(text)
+# Call the function to convert audio to text
+converted_text = convert_audio_to_text()
+print("Converted Text: ", converted_text)

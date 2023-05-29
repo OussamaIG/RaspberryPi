@@ -26,6 +26,7 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            margin-right: 2em;
         }
 
         .button-container {
@@ -77,7 +78,8 @@
         #button5 {
             background-color: white;
             border: 1px solid black;
-            color: bl;
+            color: black;
+
         }
 
         #button6 {
@@ -88,10 +90,47 @@
             background-color: #021454;
         }
 
+        #dateButton{
+            background-color:  #ff9800;
+        }
+        #weatherButton {
+            background-color: #800080;
+        }
+        #timeButton{
+            background-color: #008080;
+        }
+
         .button:hover,
         .button-small:hover {
             opacity: 0.8;
         }
+
+        .input {
+            display: block;
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input{
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+        .button-container2{
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            background-color: white;
+            padding: 10px 20px;
+        }
+        .button-container button{
+            background-color: green;
+        }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -113,6 +152,24 @@
         </div>
     </div>
 
+    <!-- New div with three buttons -->
+    <div class="button-container2">
+        <div class="buttons">
+            <button id="dateButton" class="button">Date/Time</button>
+            <button id="timeButton" class="button">Timezone</button>
+            <button id="weatherButton" class="button">Weather</button>
+        </div>
+        <div id="timeInputContainer" class="button-container hidden">
+            <input type="text" id="timeInput" class="input" placeholder="Europe/France">
+            <button id="timeSubmitButton" class="button">Submit Time</button>
+        </div>
+        <div id="weatherInputContainer" class="button-container hidden">
+            <input type="text" id="weatherInput" class="input" placeholder="Turkey">
+            <button id="weatherSubmitButton" class="button">Submit Weather</button>
+        </div>
+    </div>
+
+
     <script>
         // Function to handle button click events
         function handleButtonClick(value) {
@@ -131,6 +188,7 @@
 
         // Add event listeners to the buttons
         $(document).ready(function () {
+            // Existing button click handlers
             $("#onButton").click(function () {
                 handleButtonClick(1);
             });
@@ -158,8 +216,34 @@
             $("#toggleButton").click(function () {
                 handleButtonClick(7);
             });
+
+            // New button click handlers
+            $("#dateButton").click(function () {
+                handleButtonClick(8);
+            });
+
+            $("#timeButton").click(function () {
+                $("#timeInputContainer").toggleClass("hidden");
+                handleButtonClick(9);
+            });
+
+            $("#weatherButton").click(function () {
+                $("#weatherInputContainer").toggleClass("hidden");
+                handleButtonClick(10);
+            });
+
+            $("#timeSubmitButton").click(function () {
+                var timeInput = $("#timeInput").val();
+                handleButtonClick(timeInput);
+            });
+
+            $("#weatherSubmitButton").click(function () {
+                var weatherInput = $("#weatherInput").val();
+                handleButtonClick(weatherInput);
+            });
         });
     </script>
+
 </body>
 
 </html>
