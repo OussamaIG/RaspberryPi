@@ -190,6 +190,7 @@ def TurnON(number):
         weather = get_weather(number)
         print(weather["cityname"], weather["temp"])
         screendisplay(str(weather["cityname"]), str(weather["temp"]))
+        weather = False
 
     elif number == "9" :
         metime = True
@@ -199,6 +200,7 @@ def TurnON(number):
         print(f"Current Time in {city[1]}: {mytime}")
         mytome = str(mytime)
         screendisplay(city[1], mytome)
+        metime = False
     elif number == "8" :
         datetime = get_date()
         print(f"Current Time: {datetime['time']}")
