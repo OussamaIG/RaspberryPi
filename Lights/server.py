@@ -29,7 +29,7 @@ def screendisplay():
     HEIGHT = 160
     SPEED_HZ = 16000000
 
-    MESSAGE = "Hello World! How are you today?"
+    MESSAGE = "Hello World! "
 
 
 # Raspberry Pi configuration.
@@ -55,12 +55,12 @@ def screendisplay():
 
     draw = ImageDraw.Draw(img)
 
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)
 
     size_x, size_y = draw.textsize(MESSAGE, font)
 
-    text_x = 10
-    text_y = 10
+    text_x = 40
+    text_y = 40
 
     t_start = time.time()
 
