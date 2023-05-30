@@ -55,7 +55,7 @@ def screendisplay(msg):
 
     draw = ImageDraw.Draw(img)
 
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)
 
     size_x, size_y = draw.textsize(MESSAGE, font)
 
