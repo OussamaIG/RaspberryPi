@@ -63,6 +63,7 @@ def screendisplay(msg, msg2):
 
     t_start = time.time()
 
+    img = img.rotate(90).resize((WIDTH, HEIGHT))
     draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
     disp.display(img)
     
