@@ -49,4 +49,5 @@ text_y = 10
 t_start = time.time()
 
 draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
+img = img.rotate(90).resize((WIDTH, HEIGHT))
 disp.display(img)
