@@ -24,12 +24,12 @@ toggle = False
 weather = False
 metime = False
 
-def screendisplay():
+def screendisplay(msg):
     WIDTH = 128
     HEIGHT = 160
     SPEED_HZ = 16000000
 
-    MESSAGE = "Hello World! "
+    MESSAGE = msg
 
 
 # Raspberry Pi configuration.
@@ -66,6 +66,7 @@ def screendisplay():
 
     draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
     disp.display(img)
+    
 
 
 def split_string(input_string):
@@ -122,7 +123,6 @@ def TurnON(number):
     global light1, light2, light3, light4, toggle, weather, metime
 
     if number == "1":
-        screendisplay()
         print('ON')
         led1.on()
         led2.on()
@@ -169,19 +169,19 @@ def TurnON(number):
     elif number == "7":   
         toggle = not toggle
         if toggle == True :
-            print('Toggle')
-            led1.on()
-            time.sleep(0.5)
-            led1.off()
-            led2.on()
-            time.sleep(0.5)
-            led2.off()
-            led3.on()
-            time.sleep(0.5)
-            led3.off()
-            led4.on()
-            time.sleep(0.5)
-            led4.off()
+            while toggle == True :
+                led1.on()
+                time.sleep(0.5)
+                led1.off()
+                led2.on()
+                time.sleep(0.5)
+                led2.off()
+                led3.on()
+                time.sleep(0.5)
+                led3.off()
+                led4.on()
+                time.sleep(0.5)
+                led4.off()
         else :
             print('toggle off')         
     elif number == "10" :
@@ -189,7 +189,7 @@ def TurnON(number):
     elif weather == True:
         weather = get_weather(number)
         print(weather)
-        screendisplay()
+        # screendisplay()
 
     elif number == "9" :
         metime = True
@@ -197,12 +197,12 @@ def TurnON(number):
         city = split_string(number)
         mytime = get_current_time(city[1], number)
         print(f"Current Time in {city[1]}: {mytime}")
-        screendisplay()
+        # screendisplay()
     elif number == "8" :
         datetime = get_date()
         print(f"Current Time: {datetime['time']}")
         print(f"Current Date: {datetime['date']}")
-        screendisplay()
+        screendisplay(datetime["date"])
 app = Flask(__name__)
 
 @app.route("/")
