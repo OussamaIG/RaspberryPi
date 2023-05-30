@@ -58,8 +58,8 @@ def screendisplay(msg, msg2):
     font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)
 
 
-    text_x = 30
-    text_y = 30
+    text_x = 10
+    text_y = 20
 
     t_start = time.time()
 
