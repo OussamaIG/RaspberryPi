@@ -197,7 +197,9 @@ def TurnON(number):
         city = split_string(number)
         mytime = get_current_time(city[1], number)
         print(f"Current Time in {city[1]}: {mytime}")
-        screendisplay(city[1], mytime)
+        print(type(city[1]))
+        print(type(mytime))
+        # screendisplay(city[1], mytime)
     elif number == "8" :
         datetime = get_date()
         print(f"Current Time: {datetime['time']}")
