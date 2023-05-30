@@ -29,8 +29,7 @@ def screendisplay():
     HEIGHT = 160
     SPEED_HZ = 16000000
 
-    MESSAGE = "Hello welcome"
-    MESSAGE2 = "to your assitant"
+    MESSAGE = "Hello World! How are you today?"
 
 
 # Raspberry Pi configuration.
@@ -61,14 +60,13 @@ def screendisplay():
     size_x, size_y = draw.textsize(MESSAGE, font)
 
     text_x = 10
-    text_y = 20
-    text_x2 = 10
-    text_y2 = 40
+    text_y = 10
 
     t_start = time.time()
 
     draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
     disp.display(img)
+
 
 def split_string(input_string):
     # Split the string using "/"
