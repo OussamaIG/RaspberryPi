@@ -55,7 +55,7 @@ def screendisplay(stringpass):
     text_y = 10
 
 # Draw the text.
-    draw.text((text_x, text_y), stringpass, font=font, fill=text_color)
+    draw.text((text_x, text_y), 'hello', font=font, fill=text_color)
 
 # Display the image.
     display.image(image)
@@ -180,7 +180,7 @@ def TurnON(number):
     elif weather == True:
         weather = get_weather(number)
         print(weather)
-        screendisplay(weather)
+        screendisplay()
 
     elif number == "9" :
         metime = True
@@ -188,12 +188,12 @@ def TurnON(number):
         city = split_string(number)
         mytime = get_current_time(city[1], number)
         print(f"Current Time in {city[1]}: {mytime}")
-        screendisplay(mytime)
+        screendisplay()
     elif number == "8" :
         datetime = get_date()
         print(f"Current Time: {datetime['time']}")
         print(f"Current Date: {datetime['date']}")
-        screendisplay(datetime["date"])
+        screendisplay()
 app = Flask(__name__)
 
 @app.route("/")
