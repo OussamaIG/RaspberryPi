@@ -59,9 +59,9 @@ def screendisplay(msg, msg2):
 
 
     text_x = 10
-    text_y = 40
+    text_y = 10
     textx = 10
-    texty = 80
+    texty = 20
 
     t_start = time.time()
 
