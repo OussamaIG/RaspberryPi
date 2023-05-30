@@ -29,7 +29,7 @@ def screendisplay(msg, msg2):
     HEIGHT = 160
     SPEED_HZ = 16000000
 
-    MESSAGE = msg + msg2
+    MESSAGE = msg
 
 
 # Raspberry Pi configuration.
@@ -63,8 +63,8 @@ def screendisplay(msg, msg2):
 
     t_start = time.time()
 
-    img = img.rotate(180).resize((WIDTH, HEIGHT))
     draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
+    draw.text((text_x, text_y+20), msg, font=font, fill=(255, 255, 255))
     disp.display(img)
     
 
