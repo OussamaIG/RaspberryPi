@@ -55,12 +55,12 @@ def screendisplay(msg):
 
     draw = ImageDraw.Draw(img)
 
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 15)
 
     size_x, size_y = draw.textsize(MESSAGE, font)
 
-    text_x = 40
-    text_y = 40
+    text_x = 20
+    text_y = 60
 
     t_start = time.time()
 
@@ -116,7 +116,7 @@ def get_date():
     # Format the current time and date
     formatted_time = current_time.strftime("%H:%M:%S")  # Hours:Minutes:Seconds
     formatted_date = current_time.strftime("%Y-%m-%d")  # Year-Month-Day
-    data = {"time" : formatted_date, "date" : formatted_date}
+    data = {"time" : formatted_time, "date" : formatted_date}
     return data
 
 def TurnON(number):
