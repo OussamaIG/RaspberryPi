@@ -189,7 +189,7 @@ def TurnON(number):
     elif weather == True:
         weather = get_weather(number)
         print(weather["cityname"], weather["temp"])
-        # screendisplay()
+        screendisplay(str(weather["cityname"]), str(weather["temp"]))
 
     elif number == "9" :
         metime = True
