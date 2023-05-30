@@ -1,45 +1,52 @@
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+
 import time
-import board
-import digitalio
-from PIL import Image, ImageDraw, ImageFont
-import adafruit_rgb_display.st7735 as st7735
 
-# Raspberry Pi configuration:
-CS_PIN = digitalio.DigitalInOut(board.CE0)
-DC_PIN = digitalio.DigitalInOut(board.D25)
-RESET_PIN = digitalio.DigitalInOut(board.D24)
+import ST7735 as TFT
+import Adafruit_GPIO as GPIO
+import Adafruit_GPIO.SPI as SPI
 
-# TFT display configuration:
-TFT_WIDTH = 128
-TFT_HEIGHT = 160
 
-# Create TFT LCD display instance.
-spi = board.SPI()
-display = st7735.ST7735R(spi, cs=CS_PIN, dc=DC_PIN, rst=RESET_PIN, width=TFT_WIDTH, height=TFT_HEIGHT)
+WIDTH = 128
+HEIGHT = 160
+SPEED_HZ = 16000000
+
+MESSAGE = "Hello World! How are you today?"
+
+
+# Raspberry Pi configuration.
+DC = 24
+RST = 25
+SPI_PORT = 0
+SPI_DEVICE = 0
+
+# Create TFT LCD display class.
+disp = TFT.ST7735(
+    DC,
+    rst=RST,
+    spi=SPI.SpiDev(
+        SPI_PORT,
+        SPI_DEVICE,
+        max_speed_hz=SPEED_HZ))
 
 # Initialize display.
-display.fill(st7735.BLACK)
-display.rotation = 90
+disp.begin()
 
-# Load font file.
-font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
 
-# Create image buffer.
-image = Image.new('RGB', (TFT_WIDTH, TFT_HEIGHT), color=st7735.BLACK)
-draw = ImageDraw.Draw(image)
+img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
 
-# Set text color.
-text_color = (255, 255, 255)
+draw = ImageDraw.Draw(img)
 
-# Set text position.
+font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)
+
+size_x, size_y = draw.textsize(MESSAGE, font)
+
 text_x = 10
 text_y = 10
 
-# Draw the text.
-draw.text((text_x, text_y), 'Hello, world!', font=font, fill=text_color)
+t_start = time.time()
 
-# Display the image.
-display.image(image)
-
-# Pause to show the text.
-time.sleep(5)
+draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
+disp.display(img)
