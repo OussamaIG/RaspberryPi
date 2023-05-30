@@ -217,6 +217,7 @@ def index():
 def handle_button():
     value = request.form.get("value")
     print("Received value:", value)
+    screendisplay()
     TurnON(value)
     return "Success"
 
