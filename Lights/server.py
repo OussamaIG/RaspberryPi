@@ -4,8 +4,6 @@ import time
 import requests
 from datetime import datetime
 import pytz
-import board
-import digitalio
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -63,7 +61,7 @@ def screendisplay():
     size_x, size_y = draw.textsize(MESSAGE, font)
 
     text_x = 10
-    text_y = 10
+    text_y = 20
     text_x2 = 10
     text_y2 = 40
 
