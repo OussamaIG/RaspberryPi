@@ -188,7 +188,7 @@ def TurnON(number):
         weather = True
     elif weather == True:
         weather = get_weather(number)
-        print(weather)
+        print(weather["cityname"], weather["temp"])
         # screendisplay()
 
     elif number == "9" :
@@ -197,7 +197,7 @@ def TurnON(number):
         city = split_string(number)
         mytime = get_current_time(city[1], number)
         print(f"Current Time in {city[1]}: {mytime}")
-        # screendisplay()
+        screendisplay(city[1], mytime)
     elif number == "8" :
         datetime = get_date()
         print(f"Current Time: {datetime['time']}")
