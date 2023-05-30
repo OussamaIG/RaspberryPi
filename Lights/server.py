@@ -64,7 +64,6 @@ def screendisplay(msg, msg2):
     t_start = time.time()
 
     draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
-    draw.text((text_x, text_y+20), msg, font=font, fill=(255, 255, 255))
     disp.display(img)
     
 
