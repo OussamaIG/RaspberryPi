@@ -31,7 +31,7 @@ def screendisplay():
     HEIGHT = 160
     SPEED_HZ = 16000000
 
-    MESSAGE = "Hello welcome to"
+    MESSAGE = "Hello welcome"
     MESSAGE2 = "to your assitant"
 
 
@@ -70,7 +70,6 @@ def screendisplay():
     t_start = time.time()
 
     draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
-    draw.text((text_x, text_y), MESSAGE2, font=font, fill=(255, 255, 255))
     disp.display(img)
 
 def split_string(input_string):
@@ -127,6 +126,7 @@ def TurnON(number):
     global light1, light2, light3, light4, toggle, weather, metime
 
     if number == "1":
+        screendisplay()
         print('ON')
         led1.on()
         led2.on()
@@ -217,7 +217,6 @@ def index():
 def handle_button():
     value = request.form.get("value")
     print("Received value:", value)
-    screendisplay()
     TurnON(value)
     return "Success"
 
