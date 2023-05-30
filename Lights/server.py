@@ -24,7 +24,7 @@ toggle = False
 weather = False
 metime = False
 
-def screendisplay(msg):
+def screendisplay(msg, msg2):
     WIDTH = 128
     HEIGHT = 160
     SPEED_HZ = 16000000
@@ -57,14 +57,16 @@ def screendisplay(msg):
 
     font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 15)
 
-    size_x, size_y = draw.textsize(MESSAGE, font)
 
-    text_x = 20
-    text_y = 60
+    text_x = 25
+    text_y = 40
+    textx = 25
+    texty = 80
 
     t_start = time.time()
 
     draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
+    draw.text((textx, texty), msg2, font=font, fill=(255, 255, 255))
     disp.display(img)
     
 
@@ -202,7 +204,7 @@ def TurnON(number):
         datetime = get_date()
         print(f"Current Time: {datetime['time']}")
         print(f"Current Date: {datetime['date']}")
-        screendisplay(datetime["date"])
+        screendisplay(datetime["date"], datetime["time"])
 app = Flask(__name__)
 
 @app.route("/")
