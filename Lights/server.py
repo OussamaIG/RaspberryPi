@@ -22,7 +22,7 @@ toggle = False
 weather = False
 metime = False
 
-def screendisplay(stringpass):
+def screendisplay():
     # Raspberry Pi configuration:
     CS_PIN = digitalio.DigitalInOut(board.CE0)
     DC_PIN = digitalio.DigitalInOut(board.D25)
