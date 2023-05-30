@@ -59,7 +59,7 @@ def screendisplay(msg, msg2):
 
 
     text_x = 20
-    text_y = 10
+    text_y = 30
 
     t_start = time.time()
 
