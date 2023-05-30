@@ -18,14 +18,14 @@ spi = board.SPI()
 display = st7735.ST7735R(spi, cs=CS_PIN, dc=DC_PIN, rst=RESET_PIN, width=TFT_WIDTH, height=TFT_HEIGHT)
 
 # Initialize display.
-display.fill(st7735.BLACK)
+display.fill(st7735.COLOR_BLACK)
 display.rotation = 90
 
 # Load font file.
 font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
 
 # Create image buffer.
-image = Image.new('RGB', (TFT_WIDTH, TFT_HEIGHT), color=st7735.BLACK)
+image = Image.new('RGB', (TFT_WIDTH, TFT_HEIGHT), color=st7735.COLOR_BLACK)
 draw = ImageDraw.Draw(image)
 
 # Set text color.
