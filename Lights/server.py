@@ -4,11 +4,15 @@ import time
 import requests
 from datetime import datetime
 import pytz
+import board
+import digitalio
+from PIL import Image, ImageDraw, ImageFont
+import adafruit_rgb_display.st7735 as st7735
 
-# led1 = LED(22)
-# led2 = LED(27)
-# led3 = LED(17)
-# led4 = LED(18)
+led1 = LED(14)
+led2 = LED(15)
+led3 = LED(18)
+led4 = LED(23)
 
 light1 = False
 light2 = False
@@ -17,6 +21,44 @@ light4 = False
 toggle = False
 weather = False
 metime = False
+
+def screendisplay(stringpass):
+    # Raspberry Pi configuration:
+    CS_PIN = digitalio.DigitalInOut(board.CE0)
+    DC_PIN = digitalio.DigitalInOut(board.D25)
+    RESET_PIN = digitalio.DigitalInOut(board.D24)
+
+# TFT display configuration:
+    TFT_WIDTH = 128
+    TFT_HEIGHT = 160
+
+# Create TFT LCD display instance.
+    spi = board.SPI()
+    display = st7735.ST7735R(spi, cs=CS_PIN, dc=DC_PIN, rst=RESET_PIN, width=TFT_WIDTH, height=TFT_HEIGHT)
+
+# Initialize display.
+    display.fill(st7735.BLACK)
+    display.rotation = 90
+
+# Load font file.
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
+
+# Create image buffer.
+    image = Image.new('RGB', (TFT_WIDTH, TFT_HEIGHT), color=st7735.BLACK)
+    draw = ImageDraw.Draw(image)
+
+# Set text color.
+    text_color = (255, 255, 255)
+
+# Set text position.
+    text_x = 10
+    text_y = 10
+
+# Draw the text.
+    draw.text((text_x, text_y), stringpass, font=font, fill=text_color)
+
+# Display the image.
+    display.image(image)
 
 def split_string(input_string):
     # Split the string using "/"
@@ -138,6 +180,7 @@ def TurnON(number):
     elif weather == True:
         weather = get_weather(number)
         print(weather)
+        screendisplay(weather)
 
     elif number == "9" :
         metime = True
@@ -145,10 +188,12 @@ def TurnON(number):
         city = split_string(number)
         mytime = get_current_time(city[1], number)
         print(f"Current Time in {city[1]}: {mytime}")
+        screendisplay(mytime)
     elif number == "8" :
         datetime = get_date()
         print(f"Current Time: {datetime['time']}")
         print(f"Current Date: {datetime['date']}")
+        screendisplay(datetime["date"])
 app = Flask(__name__)
 
 @app.route("/")
