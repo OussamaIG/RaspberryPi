@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "raspberrypi-d200d",
+  "private_key_id": "8d961be29b5a36e55a6fcc20da685135480c23ab",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCUwmtYcYS9+7ri\np4IgyeRUGrDrx0suQdsaj2hY2xs9n0+QJIeLZsb/w7hk8vP1A0mI88Xd5SK1VTTV\nVxtsX8SnRVBHq91KDQ1ZWSnfGZZwcjdMOOVEA29bTZaoRIUyEn5iFgtN5jTcMVNQ\nA5j+LMScXh1hsDkBvHqCritr/86Gmd3IUcnlj4A8kxRh9qpudkaTMbS7iPtT3VNa\nOL80z71aen1VIKJaCr5I2nvzF65+rfxXzB6nZW+bLcIzoSeId8BjwvsTUItRHB/L\nLZiEitw+cdQn0iOOvMLSkOaTRCJalmeETm3zAvK4Uc+GnvzK9WeeGombJVi+LicZ\n8wi1lvrVAgMBAAECggEABI6jyqAiDWhOgUGmPZcbXOChpkkPynLioY2Ru3sgemkZ\nfy4NtJCpX83hDCXabf/NezN6NQIfTi42KDz7AZbTevGNwPK8Aws9HloaOGDCMfkS\nkzRNzbrlm+0kd7L8E5y4BqafO27MesLMeklWumt1RuCmBmEA9hOOLnFKGKZlbzK8\n66An2nrH5+UHHz2csEL56hhOt1T/oCrM5T0RH7x1PFByoYvK6R+Mqhwc697Q8Nhi\nGjTCY4ru+tKBSmYAg6/iBjRpPFg3bFQn+eXvezUkYdMKwBWnR0/cfnEMSrzjOSro\nWPW2Dp4uccGOU11zf0hv6MRqriQ6iIK/WF3SNzwPlwKBgQDSTlEkMccsVhXL1Uyq\nwLaA8LMZu6J6C8xXbBnggRy2ekpvZGe1V21Md5XxbO8K/ropDnK9m8XcBEQpKyuo\nzNas72y5J3iiRbbfy3CkGudy8G28thGxQkjyOE87kIROYUARv7QhzEMoac//u7Nl\nEuUMc2FRrovCIxG0rStgfbtK1wKBgQC1FMAn5bXxWgipVTgAfEEr2YZRf5LJtgbg\nnN0kzlndBJ6CgonrMpOGpRa12pCiN4YzH6vaRJ33j/CO4gQS9rEW9meK5n5+CHpq\ndx+V7ES2LysgFgiypOZ+63y514N7oO5mg5qWrT2ox517xjSVa2NnXnNc6DzuQClO\nNed/ljE+MwKBgQCILchi/IyxS+j/PVZQt0s2QSZoQlTaXKtr7IbxFgnGq3dpnAV/\nqmYO/tysIVLEtt9K2J055BWB+407b0XtHv7fqoWne0SlJylczvpYeUdn6QHWEbtx\nIa/kkMvVkSXrLxPyqkT1IbRXBfV27k8i4tJIdqoM306GXnkHmp6c862ErwKBgFqa\nSlbsGa/sA39uUzny8czV5t3qPfDNMf26nu+mi9IJWKImXImg4a2x9n4BIPL5Yx07\nUIpCYOOYUp27OpyecBb0LPSTxWCcL1wLxHMIJ40cZrCENc/ksCt6+gomafQ2nnIO\nkQ+pGLvVPNfMYU0N0UvMN16aGLqAweoPEIiHBpZ/AoGARwBWhpqbNADPfBbNTNzv\nX5U6eXqm/V7LjbJgZJC9T4v5JEU48Ip6XtfkEbGKAd8uzzpW3nd5evAolHpjEOwd\nuNprUE7HPRCHapZotoc8HtNvymg1Oa7eJjcdBQykVyAa6w74NCEx8cOIicyd5421\n4uHC3EfoHhTL+XboHwfF6yI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-o5eof@raspberrypi-d200d.iam.gserviceaccount.com",
+  "client_id": "104622994444710948022",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-o5eof%40raspberrypi-d200d.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

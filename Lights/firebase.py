@@ -1,3 +1,6 @@
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
 from flask import Flask, request
 from gpiozero import LED
 import time
@@ -11,6 +14,7 @@ import ST7735 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 
+# Initialization 
 led1 = LED(14)
 led2 = LED(15)
 led3 = LED(18)
@@ -24,51 +28,7 @@ toggle = False
 weather = False
 metime = False
 
-def screendisplay(msg, msg2):
-    WIDTH = 128
-    HEIGHT = 160
-    SPEED_HZ = 16000000
-
-    MESSAGE = msg
-
-
-# Raspberry Pi configuration.
-    DC = 24
-    RST = 25
-    SPI_PORT = 0
-    SPI_DEVICE = 0
-
-# Create TFT LCD display class.
-    disp = TFT.ST7735(
-        DC,
-        rst=RST,
-        spi=SPI.SpiDev(
-            SPI_PORT,
-            SPI_DEVICE,
-            max_speed_hz=SPEED_HZ))
-
-# Initialize display.
-    disp.begin()
-
-
-    img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
-
-    draw = ImageDraw.Draw(img)
-
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 15)
-
-
-    text_x = 20
-    text_y = 30
-
-    t_start = time.time()
-
-    draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
-    draw.text((text_x, text_y+60), msg2, font=font, fill=(255, 255, 255))
-    disp.display(img)
-    
-
-
+#Functions
 def split_string(input_string):
     # Split the string using "/"
     split_list = input_string.split("/")
@@ -119,30 +79,80 @@ def get_date():
     data = {"time" : formatted_time, "date" : formatted_date}
     return data
 
-def TurnON(number):
-    global light1, light2, light3, light4, toggle, weather, metime
+def screendisplay(msg, msg2):
+    WIDTH = 128
+    HEIGHT = 160
+    SPEED_HZ = 16000000
 
-    if number == "1":
-        print('ON')
-        led1.on()
-        led2.on()
-        led3.on()
-        led4.on()
-    elif number == "0":
-        print('OFF')
+    MESSAGE = msg
+
+
+# Raspberry Pi configuration.
+    DC = 24
+    RST = 25
+    SPI_PORT = 0
+    SPI_DEVICE = 0
+
+# Create TFT LCD display class.
+    disp = TFT.ST7735(
+        DC,
+        rst=RST,
+        spi=SPI.SpiDev(
+            SPI_PORT,
+            SPI_DEVICE,
+            max_speed_hz=SPEED_HZ))
+
+# Initialize display.
+    disp.begin()
+
+
+    img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
+
+    draw = ImageDraw.Draw(img)
+
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 15)
+
+
+    text_x = 20
+    text_y = 30
+
+    t_start = time.time()
+
+    draw.text((text_x, text_y), MESSAGE, font=font, fill=(255, 255, 255))
+    draw.text((text_x, text_y+60), msg2, font=font, fill=(255, 255, 255))
+    disp.display(img)
+    
+
+# Fetch the service account key JSON file from Firebase console
+cred = credentials.Certificate('C://Users//OUSSAMA//Documents//Master//S2//IOT//RaspberryPi//Lights//filejson.json')
+
+# Initialize the Firebase app
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://raspberrypi-d200d-default-rtdb.firebaseio.com/'
+})
+
+# Get a database reference
+ref = db.reference('buttonValue')
+
+# Retrieve the value of 'buttonValue'
+
+
+# Log the value on the screen
+while(True):
+    button_value = ref.get()
+    if button_value == 0:
+        print('lights off')
         led1.off()
         led2.off()
         led3.off()
         led4.off()
-    elif number == "6":
-        light1 = not light1
-        if light1 == True :
-            print('LIGHT4 on')
-            led4.on()
-        else :
-            print('LIGHT4 off')
-            led4.off()
-    elif number == "3":
+    elif button_value == 1:
+        print('lights on')
+        led1.on()
+        led2.on()
+        led3.on()
+        led4.on()
+    elif button_value == 3:
         light2 = not light2
         if light2 == True :
             print('LIGHT1 on')
@@ -150,7 +160,7 @@ def TurnON(number):
         else :
             print('LIGHT1 off')
             led1.off()
-    elif number == "4":
+    elif button_value == 4:
         light3 = not light3
         if light3 == True :
             print('LIGHT2 on')
@@ -158,15 +168,23 @@ def TurnON(number):
         else :
             print('LIGHT2 off')
             led2.off()
-    elif number == "5":
+    elif button_value == 5:
         light4 = not light4
         if light4 == True :
             print('LIGHT3 on')
             led3.on()
         else :
             print('LIGHT3 off')
-            led3.off()
-    elif number == "7":   
+            led3.off()  
+    elif button_value == 6:
+        light1 = not light1
+        if light1 == True :
+            print('LIGHT4 on')
+            led4.on()
+        else :
+            print('LIGHT4 off')
+            led4.off()
+    elif button_value == 7:
         toggle = not toggle
         if toggle == True :
             print('toggle on')
@@ -185,40 +203,24 @@ def TurnON(number):
                 led4.off()
         else :
             print('toggle off')         
-    elif number == "10" :
-        weather = True
-    elif weather == True:
-        weather = get_weather(number)
-        print(weather["cityname"], weather["temp"])
-        screendisplay(str(weather["cityname"]), str(weather["temp"]))
-        weather = False
-
-    elif number == "9" :
-        metime = True
-    elif metime == True :
-        city = split_string(number)
-        mytime = get_current_time(city[1], number)
-        print(f"Current Time in {city[1]}: {mytime}")
-        mytome = str(mytime)
-        screendisplay(city[1], mytome)
-        metime = False
-    elif number == "8" :
+    elif button_value == 8:
         datetime = get_date()
         print(f"Current Time: {datetime['time']}")
         print(f"Current Date: {datetime['date']}")
         screendisplay(datetime["date"], datetime["time"])
-app = Flask(__name__)
-
-@app.route("/")
-def index():
-    return open("index.html").read()
-
-@app.route("/button", methods=["POST"])
-def handle_button():
-    value = request.form.get("value")
-    print("Received value:", value)
-    TurnON(value)
-    return "Success"
-
-if __name__ == "__main__":
-    app.run()
+    elif button_value == 9:
+         metime = True
+    elif metime == True :
+        city = split_string(button_value)
+        mytime = get_current_time(city[1], button_value)
+        print(f"Current Time in {city[1]}: {mytime}")
+        mytome = str(mytime)
+        screendisplay(city[1], mytome)
+        metime = False
+    elif button_value == 10:
+        weather = True
+    elif weather == True:
+        weather = get_weather(button_value)
+        print(weather["cityname"], weather["temp"])
+        screendisplay(str(weather["cityname"]), str(weather["temp"]))
+        weather = False                      

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Check Variable in Firebase</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+</head>
+
+<body>
+    <h1>Check Variable in Firebase</h1>
+
+    <button id="button1" onclick="storeValue(1)">Button 1</button>
+    <button id="button2" onclick="storeValue(0)">Button 2</button>
+
+    <script>
+        // Initialize Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyDKNfrBGZMUiZ4BIzbaT6Pz0yHgrniuwNM",
+            authDomain: "raspberrypi-d200d.firebaseapp.com",
+            databaseURL: "https://raspberrypi-d200d-default-rtdb.firebaseio.com",
+            projectId: "raspberrypi-d200d",
+            storageBucket: "raspberrypi-d200d.appspot.com",
+            messagingSenderId: "284462301425",
+            appId: "1:284462301425:web:1146754775b88f9b056950",
+            measurementId: "G-W5Q9HTE15P"
+        };
+
+        // Check if Firebase app is already initialized
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        // Function to store button value in Firebase
+        function storeValue(value) {
+            firebase.database().ref('buttonValue').set(value);
+            console.log('Button value stored:', value);
+        }
+
+        // Check if buttonValue exists in Firebase
+        var buttonValueRef = firebase.database().ref('buttonValue');
+        buttonValueRef.once('value', function (snapshot) {
+            var buttonValue = snapshot.val();
+            if (buttonValue !== null) {
+                console.log('buttonValue exists:', buttonValue);
+            } else {
+                console.log('buttonValue does not exist or is null.');
+            }
+        });
+    </script>
+</body>
+
+</html>

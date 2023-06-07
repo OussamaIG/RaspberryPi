@@ -133,6 +133,8 @@
 
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
 </head>
 
 <body>
@@ -171,6 +173,24 @@
 
 
     <script>
+        // setting firebase 
+        var firebaseConfig = {
+            apiKey: "AIzaSyDKNfrBGZMUiZ4BIzbaT6Pz0yHgrniuwNM",
+            authDomain: "raspberrypi-d200d.firebaseapp.com",
+            databaseURL: "https://raspberrypi-d200d-default-rtdb.firebaseio.com",
+            projectId: "raspberrypi-d200d",
+            storageBucket: "raspberrypi-d200d.appspot.com",
+            messagingSenderId: "284462301425",
+            appId: "1:284462301425:web:1146754775b88f9b056950",
+            measurementId: "G-W5Q9HTE15P"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        function storeValue(value) {
+            firebase.database().ref('buttonValue').set(value);
+            console.log('Button value stored:', value);
+        }
         // Function to handle button click events
         function handleButtonClick(value) {
             $.ajax({
@@ -191,57 +211,70 @@
             // Existing button click handlers
             $("#onButton").click(function () {
                 handleButtonClick(1);
+                storeValue(1);
             });
 
             $("#offButton").click(function () {
                 handleButtonClick(0);
+                storeValue(0);
             });
 
             $("#button3").click(function () {
                 handleButtonClick(3);
+                storeValue(3);
             });
 
             $("#button4").click(function () {
                 handleButtonClick(4);
+                storeValue(4);
             });
 
             $("#button5").click(function () {
                 handleButtonClick(5);
+                storeValue(5);
             });
 
             $("#button6").click(function () {
                 handleButtonClick(6);
+                storeValue(6);
             });
 
             $("#toggleButton").click(function () {
                 handleButtonClick(7);
+                storeValue(7);
             });
 
             // New button click handlers
             $("#dateButton").click(function () {
                 handleButtonClick(8);
+                storeValue(8);
             });
 
             $("#timeButton").click(function () {
                 $("#timeInputContainer").toggleClass("hidden");
                 handleButtonClick(9);
+                storeValue(9);
             });
 
             $("#weatherButton").click(function () {
                 $("#weatherInputContainer").toggleClass("hidden");
                 handleButtonClick(10);
+                storeValue(10);
             });
 
             $("#timeSubmitButton").click(function () {
                 var timeInput = $("#timeInput").val();
                 handleButtonClick(timeInput);
+                storeValue(timeInput)
             });
 
             $("#weatherSubmitButton").click(function () {
                 var weatherInput = $("#weatherInput").val();
                 handleButtonClick(weatherInput);
+                storeValue(weatherInput)
             });
         });
+        
     </script>
 
 </body>
