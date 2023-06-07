@@ -1,0 +1,15 @@
+.coverage
+*.pyc
+.python-version
+.cache/
+.tox/
+*.egg-info/
+build/
+dist/
+*~
+cert.json
+apikey.txt
+htmlcov/
+.pytest_cache/
+.vscode/
+.venv/
